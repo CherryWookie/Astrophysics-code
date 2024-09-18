@@ -20,7 +20,7 @@ def find_primes_up_to(limit):
     return primes
 
 # Find and print all prime numbers up to 100
-limit = 1000
+limit = 100
 primes_up_to_100 = find_primes_up_to(limit)
 print(primes_up_to_100)
 
