@@ -13,9 +13,9 @@ output = []
 
 for n in range(iters):
     Z_1 = (a * Z + c) % m
-    X = (65539 * Z) % m #RANDU?
+    randu = (65539 * Z) % m #RANDU?
     Z = Z_1
-    output.append(X) # Change append arguement 
+    output.append(randu) # Change append arguement 
 
 print(output)
 
