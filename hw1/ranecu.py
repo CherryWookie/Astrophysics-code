@@ -32,4 +32,4 @@ rng = RandomNumberGenerator(seed1=12345, seed2=67890)
 
 # Generate a random number
 random_number = rng.ran()
-print(random_number)
+print(f'RANECU NUMBER: ', random_number)
