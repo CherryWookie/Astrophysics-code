@@ -28,8 +28,9 @@ class RandomNumberGenerator:
         return IZ * self.USCALE
 
 # Example usage
-rng = RandomNumberGenerator(seed1=12345, seed2=67890)
+rng = RandomNumberGenerator(seed1=348713, seed2=738131)
 
 # Generate a random number
-random_number = rng.ran()
-print(f'RANECU NUMBER: ', random_number)
+for i in range(10):      
+    random_number = rng.ran()
+    print(f'RANECU NUMBER: ', random_number)

@@ -14,7 +14,7 @@ output_rand = []
 output_randu = []
 
 # Random Number with Z seed and N iterations
-    
+
 for i in range(iters):
     Z_1 = (a * Z_0 + c) % m
     randu = (65539 * Z_0) % n #RANDU?
