@@ -1,4 +1,10 @@
 import numpy as np
+import matplotlib.pyplot as plt
+
+# This code is a translation of the Fortran code for a RANECU Random Number generator with 2 seeds
+# Michael Sell
+
+iters = 2000 # Number of random numbers outputed
 
 class RandomNumberGenerator:
     def __init__(self, seed1, seed2):
@@ -30,7 +36,38 @@ class RandomNumberGenerator:
 # Example usage
 rng = RandomNumberGenerator(seed1=348713, seed2=738131)
 
+x = []
+y = []
+ranecu = []
 # Generate a random number
-for i in range(10):      
+for i in range(iters):      
     random_number = rng.ran()
     print(f'RANECU NUMBER: ', random_number)
+    ranecu.append(random_number)
+    # if i % 2 == 0:
+    #     x.append(random_number)
+    # else:
+    #     y.append(random_number)
+
+# Create tuples for 3-D plot
+tuples = [(ranecu[i],ranecu[i+1],ranecu[i+2]) for i in range(0, len(ranecu), 4)]
+
+x_vals = [point[0] for point in tuples]
+y_vals = [point[1] for point in tuples]
+z_vals = [point[2] for point in tuples]
+
+# Create a 3D scatter plot
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+ax.scatter(x_vals, y_vals, z_vals)
+
+# Plot points for randum number generator
+# plt.scatter(x,y)
+
+# Adding labels and title
+plt.xlabel('X-axis')
+plt.ylabel('Y-axis')
+plt.title('Scatter Plot of Points RANECU')
+
+# Show the plot
+plt.show()
