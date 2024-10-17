@@ -100,3 +100,19 @@ A globular cluster is a type of stellar aggrupation, formed by ~$10^5 - 10^6$ st
     - Homogeneous metallicity
     - Short formation period (burst)
     - Bound spacial distribution
+
+#### Simulation Details
+
+Inputs
+1. Number of objects $N = 10^4$
+2. Cluster age, $t_{cluster} = 8,10,12$ Gyr.
+3. Generate for each star it's born time, $t_{born}$, following a burst of star formation of $\delta t = 1.0$ Gyr
+$$ t_{born,i} = \delta t * U(0,1)$$
+
+*This should be defined as a vector*
+
+4. Generate mass of the main sequence star, *M_MS* following a IMF. We adopt the IMF from Salpeter (1995) with \alpha = 2.35
+
+$$ \phi(M_{MS}) = (M/M_\omega)^{-\alpha} , with   0.1 < M/M_\omega < 100$$
+
+5. Generate luminosity of the main-sequence stars according to Bressan et al. (1993)
