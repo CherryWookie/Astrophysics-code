@@ -49,4 +49,54 @@ In order to test for randomness, we can use one of the following:
     $$x_{i+1} = (65539x_i) mod 2^{31}$$
     - RANECU Generator
     - Your own generator (add own constant, i.e. $x_{i+1} = ax_i + b$ mod $c$)
-    
+
+
+### Uniform Distribution on a Circle
+
+1. We can take into account the number of objects per infinitesimal unit area: $ dn = rd\theta dr$
+2. We can also enclose the circle in a box and calculate the distance relative to the center and the radius.
+3. If the distribution is uniform the umber of objects per unit volume is constant:
+$$ dn = r^2sin\theta dr d\theta d\phi $$
+
+Alternative method is called *Rejection Method*. 
+
+### Astrophysics
+
+Error propagation: The parallax Case
+
+- Parallax
+- Units:
+    - Astronomical Units (AU)
+    - Light year
+    - Parsec (pc) = 3.26 light-years
+    - Arc sec
+        - Distance travelled in one second across earth's surface as an angle(1/3600 of degree)
+        - Unit of angular measurement, 3600 arcsec in 1 degree
+- Globular Clusters
+    - Born at same time
+    - Metallicity Z = cte
+        - H, He, Z
+        - Beginning of "Big Bang" creation, Z was very small. Now the Metallicity has increased over time. Now it is 1%
+- Hertzsprung-Russell diagram
+    - Blue is hotter, Red is cooler obvi
+    - Diagonal is called main sequence track/diagonal
+    - Lifetime Main-Sequence
+
+SIMULATION
+
+Create sequence of main-sequence stars and calculate how many will turn into white dwarf stars or something
+
+
+### Monte Carlo Simulation vs Observed Data
+
+- Observed data is more varied due to unidentifiable objects that could be something other than white dwarfs.
+- Luminosity Function
+
+
+### Simulate Globular Cluster
+
+A globular cluster is a type of stellar aggrupation, formed by ~$10^5 - 10^6$ stars with similar characteristics (formation, metallicity) and gravitationally bound.
+ - Globular clusters present great advantages in population synthesis studies:
+    - Homogeneous metallicity
+    - Short formation period (burst)
+    - Bound spacial distribution
