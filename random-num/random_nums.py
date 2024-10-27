@@ -9,7 +9,7 @@ a = 2
 c = 4
 m = 23 # Full Period for RANDOM NUMBER
 n = 2**31 # Full Period for RANDU IBM
-iters = 10
+iters = 50
 output_rand = []
 output_randu = []
 
