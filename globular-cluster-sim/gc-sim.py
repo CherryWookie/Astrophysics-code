@@ -4,29 +4,29 @@ import matplotlib.pyplot as plt
 np.random.seed(9)
 
 # Create variables
-N = 10000 # Number of objects
-t_cluster = 10
-t_born = []
-t_ms = []
-t_cool = []
-dt = 1
-alpha = 2.35
-min_mass = 0.1
-max_mass = 100
-mass_ms = []
-mass_wd = []
-num_wd = 0
-num_bh = 0 # Black Holes and Neutron Star count
-lum_ms = []
-lum_wd = []
-t_eff = []
-t_eff_wd = []
-R_ms = []
-R_wd = []
-sigma = 5.67e-8 # W/m^2 K^4
-C = 0.0101
-R_solar = 6.969e8
-L_solar = 3.827e26
+N = 10000           # Number of objects
+t_cluster = 10      # Cluster age
+t_born = []         # Born age
+t_ms = []           # Main Sequence Temperature
+t_cool = []         # T_cool temperature
+dt = 1              # Timestep
+alpha = 2.35        # IMF constant
+min_mass = 0.1      # Minimum Star Mass
+max_mass = 100      # Maximum Star Mass
+mass_ms = []        # Main Sequence Mass Array 
+mass_wd = []        # White Dwarf Mass Array
+num_wd = 0          # White Dwarf Count
+num_bh = 0          # Black Holes and Neutron Star count
+lum_ms = []         # Main Sequence Luminosity Array
+lum_wd = []         # White Dwarf Luminosity Array
+t_eff = []          # Main Sequence Effective Temperature 
+t_eff_wd = []       # White Dwarf Effective Temperature
+R_ms = []           # Main Sequence Radius
+R_wd = []           # White Dwarf Radius
+sigma = 5.67e-8     # W/m^2 K^4
+C = 0.0101          # Constant
+R_solar = 6.969e8   # Solar Radius  
+L_solar = 3.827e26  # Solar Luminosity
 
 # Monte Carlo Simulation
 while len(mass_ms) < N:
@@ -133,10 +133,9 @@ temp_noisy = t_eff * (1 + np.random.normal(0, 0.1, size=len(t_eff)))
 lum_wd_noisy = lum_wd * (1 + np.random.normal(0, 0.1, size=len(lum_wd)))
 temp_wd_noisy = t_eff_wd * (1 + np.random.normal(0, 0.1, size=len(t_eff_wd)))
 
-
 # Debug, Masses from largest to smallest
-sorted_arr = sorted(mass_ms, reverse=True)
-print("Sorted array from largest to smallest:", sorted_arr)
+# sorted_arr = sorted(mass_ms, reverse=True)
+# print("Sorted array from largest to smallest:", sorted_arr)
 
 # Print Number of Black Holes and Neutron Stars, as well as White Dwarfs
 print(f"Number of Black Holes or Neutron Stars: {num_bh}")
