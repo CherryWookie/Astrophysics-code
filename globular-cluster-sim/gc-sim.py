@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 np.random.seed(9)
 
 # Create variables
-N = 10000           # Number of objects
+N = 1000           # Number of objects
 t_cluster = 10      # Cluster age
 t_born = []         # Born age
 t_ms = []           # Main Sequence Temperature
@@ -67,7 +67,7 @@ for i in range(N):
 
     mass = mass_ms[i]
 
-    # Main Sequence Luminosity
+    # MAIN SEQUENCE CONDITIONS
     if t_cool[i] <= 0:
         # Calculate Luminosity based on mass ranges
         if mass > 55:
@@ -94,7 +94,7 @@ for i in range(N):
         # print(f"mass[{i}] = {mass}, t_cool[{i}] = {t_cool[i]}, lum[{i}] = {lum_i}, R[{i}] = {R_i}, T_eff[{i}] = {t_eff_i}")
  
  
-    # White Dwarf Conditions
+    # WHITE DWARF CONDITIONS
     elif t_cool_i > 0:
         if mass_ms[i] < 10:
             num_wd += 1 # White Dwarf
@@ -115,11 +115,9 @@ for i in range(N):
             t_eff_wd_i = (lum_wd_i * L_solar / (4 * np.pi * R_wd_i**2 * R_solar * sigma)) ** (1 / 4)
             t_eff_wd.append(t_eff_wd_i)
 
-        # Black Hole or Neutron Star conditions
+        # Black Hole or Neutron Star
         elif mass_ms[i] > 10:
             num_bh += 1 # Black Hole or Neutron Star
-            # print(f"mass[{i}] = {mass} did not meet t_cool condition, t_cool[{i}] = {t_cool[i]}")
-
 
 #___________________________________________________________________
 # PLOTS:
@@ -156,10 +154,10 @@ plt.title('TBORN')
 plt.show()
 
 # Plot Main Sequence Luminosity vs T_eff
-plt.scatter(t_eff, lum_ms)
+plt.scatter(t_eff, lum_ms, color='#00008B')
 
 # Plot White Dwarf Luminosity vs T_eff_wd
-plt.scatter(t_eff_wd, lum_wd)
+plt.scatter(t_eff_wd, lum_wd, color='#FFA500')
 plt.yscale('log')
 plt.xlabel('T_eff')
 plt.ylabel('Luminosity')
@@ -168,8 +166,8 @@ plt.gca().invert_xaxis()
 plt.show()
 
 # Plot White Dwarf / Main Sequence Luminosity vs T_eff_wd LOG-LOG
-plt.scatter(t_eff, lum_ms)
-plt.scatter(t_eff_wd, lum_wd)
+plt.scatter(t_eff, lum_ms, color='#00008B')
+plt.scatter(t_eff_wd, lum_wd, color='#FFA500')
 plt.yscale('log')
 plt.xscale('log')
 plt.xlabel('T_eff')
@@ -179,8 +177,8 @@ plt.gca().invert_xaxis()
 plt.show()
 
 # Plot with 10% Gaussian Noise
-plt.scatter(temp_noisy, lum_noisy, s=5)
-plt.scatter(temp_wd_noisy, lum_wd_noisy, s=5)
+plt.scatter(temp_noisy, lum_noisy, s=2, color='#00008B')
+plt.scatter(temp_wd_noisy, lum_wd_noisy, s=2, color='#FFA500')
 plt.yscale('log')
 plt.xlabel('T_eff')
 plt.ylabel('Luminosity')
@@ -189,8 +187,8 @@ plt.gca().invert_xaxis()
 plt.show()
 
 # Plot with 10% Gaussian Noise LOG-LOG
-plt.scatter(temp_noisy, lum_noisy, s= 5)
-plt.scatter(temp_wd_noisy, lum_wd_noisy, s = 5)
+plt.scatter(temp_noisy, lum_noisy, s= 2, color='#00008B')
+plt.scatter(temp_wd_noisy, lum_wd_noisy, s = 2, color='#FFA500')
 plt.yscale('log')
 plt.xscale('log')
 plt.xlabel('T_eff')
