@@ -29,7 +29,7 @@ class RANGenerator:
         return IZ * self.USCALE
 
 
-# Target numbers to match
+# Target numbers to match with
 target_numbers = [
     0.919494450092316, 0.311697453260422, 0.214007109403610,
     0.218347966670990, 0.281165540218353, 0.892118871212006,
