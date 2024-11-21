@@ -4,8 +4,13 @@ import matplotlib.pyplot as plt
 np.random.seed(9)
 
 # Create variables
+<<<<<<< HEAD
 N = 1000           # Number of objects
 # t_cluster = 10      # Cluster age
+=======
+N = 10**4           # Number of objects
+t_cluster = 12      # Cluster age
+>>>>>>> 26475a2f7ae2d6fe4090967257199ebff65d9fde
 t_born = []         # Born age
 t_ms = []           # Main Sequence Temperature
 t_cool = []         # T_cool temperature
@@ -85,6 +90,7 @@ for t_cluster in cluster_ages:
 
         mass = mass_ms[i]
 
+<<<<<<< HEAD
         # MAIN SEQUENCE CONDITIONS
         if t_cool[i] <= 0:
             # Calculate Luminosity based on mass ranges
@@ -97,6 +103,12 @@ for t_cluster in cluster_ages:
             elif mass <= 0.43:
                 lum_i = 0.23 * mass ** 2.3
             lum_ms.append(lum_i)
+=======
+        # Main Sequence Effective Temperature
+        t_eff_i = (lum_i * L_solar / (4 * np.pi * (R_i * R_solar)**2 * sigma)) ** (1 / 4)
+
+        t_eff.append(t_eff_i)
+>>>>>>> 26475a2f7ae2d6fe4090967257199ebff65d9fde
 
             # Main Sequence Radius
             if mass >= 1.12:
@@ -117,6 +129,7 @@ for t_cluster in cluster_ages:
             if mass_ms[i] < 10:
                 num_wd += 1 # White Dwarf
 
+<<<<<<< HEAD
                 # White Dwarf Mass
                 mass_wd_i = 0.49 * np.exp(0.095 * mass_ms[i])
                 mass_wd.append(mass_wd_i)
@@ -124,6 +137,12 @@ for t_cluster in cluster_ages:
                 # White Dwarf Radius
                 R_wd_i = C / mass_wd_i**(1/3)
                 R_wd.append(R_wd_i)
+=======
+            # White Dwarf T_eff
+            t_eff_wd_i = (lum_wd_i * L_solar / (4 * np.pi * (R_wd_i * R_solar)**2 * sigma)) ** (1 / 4)
+
+            t_eff_wd.append(t_eff_wd_i)
+>>>>>>> 26475a2f7ae2d6fe4090967257199ebff65d9fde
 
                 # White Dwarf Luminosity
                 lum_wd_i = 10**(-3) / t_cool[i]**(7/5)
@@ -147,6 +166,7 @@ for t_cluster in cluster_ages:
     print(f'Number of Black White Dwarfs for Age: {t_cluster} = {num_wd}')
 
 
+<<<<<<< HEAD
     # Plot Main Sequence and White Dwarfs for all ages (normal scale)
 plt.figure(figsize=(10, 6))
 colors = ['#00008B', '#FF4500', '#008000']  # Colors for ages
@@ -158,6 +178,31 @@ plt.yscale('log')
 plt.xlabel('T_eff (K)')
 plt.ylabel('Luminosity (L_sun)')
 plt.title('Temperature vs Luminosity (Normal Scale)')
+=======
+# Plot Original Mass 
+plt.hist(mass_ms, bins=100, log=True, edgecolor='black')
+plt.xlabel('Mass (Msun)')
+plt.ylabel('Number of Stars')
+plt.title(f'Mass Distribution\n$t_{{\mathrm{{cluster}}}} =$ {t_cluster} Gyrs')
+plt.show()
+
+# Plot t_born
+plt.hist(t_born, bins=100, log=True, edgecolor='black')
+plt.xlabel('T_born (Gyrs)')
+plt.ylabel('Number of Stars')
+plt.title(f'TBORN\n$t_{{\mathrm{{cluster}}}} =$ {t_cluster} Gyrs')
+plt.show()
+
+# Plot Main Sequence Luminosity vs T_eff
+plt.scatter(t_eff, lum_ms, color='#00008B')
+
+# Plot White Dwarf Luminosity vs T_eff_wd
+plt.scatter(t_eff_wd, lum_wd, color='#FFA500')
+plt.yscale('log')
+plt.xlabel('T_eff')
+plt.ylabel('Luminosity')
+plt.title(f'Temperature vs Luminosity\n$t_{{\mathrm{{cluster}}}} =$ {t_cluster} Gyrs')
+>>>>>>> 26475a2f7ae2d6fe4090967257199ebff65d9fde
 plt.gca().invert_xaxis()
 plt.legend()
 plt.show()
@@ -168,14 +213,21 @@ for i, age in enumerate(cluster_ages):
     plt.scatter(all_t_eff[i], all_lum_ms[i], s=10, color=colors[i], label=f'MS, Age={age} Gyr')
     plt.scatter(all_t_eff_wd[i], all_lum_wd[i], s=10, color=colors[i], alpha=0.5, label=f'WD, Age={age} Gyr')
 plt.xscale('log')
+<<<<<<< HEAD
 plt.yscale('log')
 plt.xlabel('T_eff (K)')
 plt.ylabel('Luminosity (L_sun)')
 plt.title('Temperature vs Luminosity (Log-Log Scale)')
+=======
+plt.xlabel('T_eff')
+plt.ylabel('Luminosity')
+plt.title(f'Temperature vs Luminosity LOG-LOG\n$t_{{\mathrm{{cluster}}}} =$ {t_cluster} Gyrs')
+>>>>>>> 26475a2f7ae2d6fe4090967257199ebff65d9fde
 plt.gca().invert_xaxis()
 plt.legend()
 plt.show()
 
+<<<<<<< HEAD
     #___________________________________________________________________
     # PLOTS:
     #___________________________________________________________________
@@ -253,3 +305,25 @@ plt.show()
     # plt.title('Plot of Temperature vs Luminosity')
     # plt.gca().invert_xaxis()
     # plt.show()
+=======
+# Plot with 10% Gaussian Noise
+plt.scatter(temp_noisy, lum_noisy, s=.5, color='#00008B')
+plt.scatter(temp_wd_noisy, lum_wd_noisy, s=.5, color='#FFA500')
+plt.yscale('log')
+plt.xlabel('T_eff')
+plt.ylabel('Luminosity')
+plt.title(f'Temperature vs Luminosity\n Added 10% Gaussian Noise\n$t_{{\mathrm{{cluster}}}} =$ {t_cluster} Gyrs')
+plt.gca().invert_xaxis()
+plt.show()
+
+# Plot with 10% Gaussian Noise LOG-LOG
+plt.scatter(temp_noisy, lum_noisy, s= .5, color='#00008B')
+plt.scatter(temp_wd_noisy, lum_wd_noisy, s = .5, color='#FFA500')
+plt.yscale('log')
+plt.xscale('log')
+plt.xlabel('T_eff')
+plt.ylabel('Luminosity')
+plt.title(f'Temperature vs Luminosity LOG-LOG\n Added 10% Gaussian Noise\n$t_{{\mathrm{{cluster}}}} =$ {t_cluster} Gyrs')
+plt.gca().invert_xaxis()
+plt.show()
+>>>>>>> 26475a2f7ae2d6fe4090967257199ebff65d9fde
