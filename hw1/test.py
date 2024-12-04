@@ -1,3 +1,6 @@
+# This is some code for CPC that I was using to plot the Trinity Bomb shock wave.
+
+
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.stats import linregress
