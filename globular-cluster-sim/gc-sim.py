@@ -41,7 +41,10 @@ all_t_eff_wd = []    # White dwarf effective temperatures
 
 # Simulate for each cluster age
 for t_cluster in cluster_ages:
+
     np.random.seed(9)  # Ensure reproducibility for each age
+
+    # Initialize lists for combined graphs
     mass_ms, t_ms, t_born, t_cool = [], [], [], []
     lum_ms, lum_wd, t_eff, t_eff_wd = [], [], [], []
     num_wd, num_bh = 0, 0
@@ -147,7 +150,7 @@ for t_cluster in cluster_ages:
     print(f'Number of Black White Dwarfs for Age: {t_cluster} = {num_wd}')
 
 
-    # Plot Main Sequence and White Dwarfs for all ages (normal scale)
+# Plot Main Sequence and White Dwarfs for all ages (normal scale)
 plt.figure(figsize=(10, 6))
 colors = ['#00008B', '#FF4500', '#008000']  # Colors for ages
 for i, age in enumerate(cluster_ages):
