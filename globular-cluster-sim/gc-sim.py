@@ -1,5 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import seaborn as sns
+
 
 np.random.seed(9)
 
@@ -150,37 +152,10 @@ for t_cluster in cluster_ages:
     print(f'Number of Black White Dwarfs for Age: {t_cluster} = {num_wd}')
 
 
-# Plot Main Sequence and White Dwarfs for all ages (normal scale)
-plt.figure(figsize=(10, 6))
-colors = ['#00008B', '#FF4500', '#008000']  # Colors for ages
-for i, age in enumerate(cluster_ages):
-    plt.scatter(all_t_eff[i], all_lum_ms[i], s=20, color=colors[i], label=f'MS, Age={age} Gyr')
-    plt.scatter(all_t_eff_wd[i], all_lum_wd[i], s=20, color=colors[i], alpha=0.5, label=f'WD, Age={age} Gyr')
-
-plt.yscale('log')
-plt.xlabel('T_eff (K)')
-plt.ylabel('Luminosity (L_sun)')
-plt.title('Temperature vs Luminosity (Normal Scale)')
-plt.gca().invert_xaxis()
-plt.legend()
-plt.show()
-
-# Plot Main Sequence and White Dwarfs for all ages (log-log scale)
-plt.figure(figsize=(10, 6))
-for i, age in enumerate(cluster_ages):
-    plt.scatter(all_t_eff[i], all_lum_ms[i], s=10, color=colors[i], label=f'MS, Age={age} Gyr')
-    plt.scatter(all_t_eff_wd[i], all_lum_wd[i], s=10, color=colors[i], alpha=0.5, label=f'WD, Age={age} Gyr')
-plt.xscale('log')
-plt.yscale('log')
-plt.xlabel('T_eff (K)')
-plt.ylabel('Luminosity (L_sun)')
-plt.title('Temperature vs Luminosity (Log-Log Scale)')
-plt.gca().invert_xaxis()
-plt.legend()
-plt.show()
 
     #___________________________________________________________________
-    # PLOTS:
+    # Individual Plots:
+    # Un-comment for individual plots
     #___________________________________________________________________
 
     # # Create Gaussian Noise Main Sequence
@@ -256,3 +231,110 @@ plt.show()
     # plt.title('Plot of Temperature vs Luminosity')
     # plt.gca().invert_xaxis()
     # plt.show()
+
+#----------------------------------------------------------
+# Combined Plots
+#----------------------------------------------------------
+
+# Plot Main Sequence and White Dwarfs for all ages (normal scale)
+plt.figure(figsize=(10, 6))
+colors = ['#00008B', '#FF4500', '#008000']  # Colors for ages
+for i, age in enumerate(cluster_ages):
+    plt.scatter(all_t_eff[i], all_lum_ms[i], s=20, color=colors[i], label=f'MS, Age={age} Gyr')
+    plt.scatter(all_t_eff_wd[i], all_lum_wd[i], s=20, color=colors[i], alpha=0.5, label=f'WD, Age={age} Gyr')
+
+plt.yscale('log')
+plt.xlabel('T_eff (K)')
+plt.ylabel('Luminosity (L_sun)')
+plt.title('Temperature vs Luminosity (Normal Scale)')
+plt.gca().invert_xaxis()
+plt.legend()
+plt.show()
+
+# Plot Main Sequence and White Dwarfs for all ages (log-log scale)
+plt.figure(figsize=(10, 6))
+for i, age in enumerate(cluster_ages):
+    plt.scatter(all_t_eff[i], all_lum_ms[i], s=10, color=colors[i], label=f'MS, Age={age} Gyr')
+    plt.scatter(all_t_eff_wd[i], all_lum_wd[i], s=10, color=colors[i], alpha=0.5, label=f'WD, Age={age} Gyr')
+plt.xscale('log')
+plt.yscale('log')
+plt.xlabel('T_eff (K)')
+plt.ylabel('Luminosity (L_sun)')
+plt.title('Temperature vs Luminosity (Log-Log Scale)')
+plt.gca().invert_xaxis()
+plt.legend()
+plt.show()
+
+# Plot Gaussian Noise for all ages (normal scale)
+plt.figure(figsize=(10, 6))
+for i, age in enumerate(cluster_ages):
+    # Create Gaussian Noise Main Sequence
+    lum_noisy = all_lum_ms[i] * (1 + np.random.normal(0, 0.1, size=len(all_lum_ms[i])))
+    temp_noisy = all_t_eff[i] * (1 + np.random.normal(0, 0.1, size=len(all_t_eff[i])))
+
+    # Create Gaussian Noise White Dwarf
+    lum_wd_noisy = all_lum_wd[i] * (1 + np.random.normal(0, 0.1, size=len(all_lum_wd[i])))
+    temp_wd_noisy = all_t_eff_wd[i] * (1 + np.random.normal(0, 0.1, size=len(all_t_eff_wd[i])))
+
+    # Plot Main Sequence and White Dwarfs with noisy data
+    plt.scatter(temp_noisy, lum_noisy, s=10, color=colors[i], label=f'MS, Age={age} Gyr')
+    plt.scatter(temp_wd_noisy, lum_wd_noisy, s=10, color=colors[i], alpha=0.5, label=f'WD, Age={age} Gyr')
+
+plt.yscale('log')
+plt.xlabel('T_eff (K)')
+plt.ylabel('Luminosity (L_sun)')
+plt.title('Temperature vs Luminosity (Normal Scale)\nGaussian Noise 10%')
+plt.gca().invert_xaxis()
+plt.legend()
+plt.show()
+
+# Plot Gaussian Noise for all ages (log-log scale)
+plt.figure(figsize=(10, 6))
+for i, age in enumerate(cluster_ages):
+    # Create Gaussian Noise for Main Sequence
+    lum_noisy = all_lum_ms[i] * (1 + np.random.normal(0, 0.1, size=len(all_lum_ms[i])))
+    temp_noisy = all_t_eff[i] * (1 + np.random.normal(0, 0.1, size=len(all_t_eff[i])))
+
+    # Create Gaussian Noise for White Dwarf
+    lum_wd_noisy = all_lum_wd[i] * (1 + np.random.normal(0, 0.1, size=len(all_lum_wd[i])))
+    temp_wd_noisy = all_t_eff_wd[i] * (1 + np.random.normal(0, 0.1, size=len(all_t_eff_wd[i])))
+
+    # Plot Main Sequence and White Dwarfs with gaussian noise
+    plt.scatter(temp_noisy, lum_noisy, s=10, color=colors[i], label=f'MS, Age={age} Gyr')
+    plt.scatter(temp_wd_noisy, lum_wd_noisy, s=10, color=colors[i], alpha=0.5, label=f'WD, Age={age} Gyr')
+
+plt.xscale('log')
+plt.yscale('log')
+plt.xlabel('T_eff (K)')
+plt.ylabel('Luminosity (L_sun)')
+plt.title('Temperature vs Luminosity (Log-Log Scale)\nGaussian Noise 10%')
+plt.gca().invert_xaxis()
+plt.legend()
+plt.show()
+
+
+#---------------------------------------------
+# Adding 2d HR Diagram
+#---------------------------------------------
+
+
+# Combine Main Sequence and White Dwarf Data
+t_eff_combined = np.concatenate(all_t_eff)  
+lum_combined = np.concatenate(all_lum_ms)   
+t_eff_combined_wd = np.concatenate(all_t_eff_wd)  
+lum_combined_wd = np.concatenate(all_lum_wd)     
+
+plt.figure(figsize=(10, 6))
+
+# Create a KDE plot (Main Sequence + White Dwarfs)
+sns.kdeplot(x=t_eff_combined, y=lum_combined, cmap='inferno', fill=True, thresh=0, levels=30, label='Main Sequence')
+sns.kdeplot(x=t_eff_combined_wd, y=lum_combined_wd, cmap='coolwarm', fill=True, thresh=0, levels=30, label='White Dwarfs')
+
+plt.xlabel('Effective Temperature (T_eff) [K]')
+plt.ylabel('Luminosity (L/L_sun)')
+plt.title('2D KDE Density Map of the HR Diagram')
+plt.xscale('log')
+plt.yscale('log')
+plt.gca().invert_xaxis()
+plt.legend()
+plt.show()
