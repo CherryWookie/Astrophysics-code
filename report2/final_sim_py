@@ -1,3 +1,4 @@
+
 # %% [markdown]
 # ## Astrophysics Report #2
 # This is the code for my (Michael Sell) Astrophysics simulated orbit. 
@@ -21,7 +22,7 @@ from galpy.potential import McMillan17
 from galpy.potential.mwpotentials import McMillan17, Irrgang13I
 from galpy.util.conversion import get_physical
 
-np.random.seed(0)
+np.random.seed(0) # Set random Seed
 N = 15000   #Number of objects
 
 # Physical Paramters
@@ -104,8 +105,9 @@ vRTZ_halo=np.array(vRTZ_halo).T
 # ### Integration (e, L_z Calculation)
 # Create three orbits for thin-disk, thick-disk, and halo white dwarfs, respectivelly. After, we create an array of timesteps and integrate the orbits. We also create different vectors to store multiple orbits.
 
-
 np.random.seed(0)
+
+N = 15000
 
 # Initialize Vectors
 star_thin=np.zeros((N,6))
@@ -134,18 +136,29 @@ for i in range(N):
     star_halo[i, 4] = vRTZ_halo[i, 2] / 220. 
     star_halo[i, 5] = RTZ_halo[1]
 
-
 ts = np.linspace(0,2,1000)*u.Gyr
 
 # Integrating ONE orbit
 o_thin = Orbit(star_thin[0], ro=R0, zo=z0, vo=V0, solarmotion=v_sun)
+o_thin_mcm17 = Orbit(**get_physical(McMillan17))
+o_thin_irrI = Orbit(**get_physical(Irrgang13I))
 o_thin.integrate(ts,MWPotential2014)
+o_thin_mcm17.integrate(ts,McMillan17)
+o_thin_irrI.integrate(ts,Irrgang13I)
 
 o_thick = Orbit(star_thick[0], ro=R0, zo=z0, vo=V0, solarmotion=v_sun)
+o_thick_mcm17 = Orbit(**get_physical(McMillan17))
+o_thick_irrI = Orbit(**get_physical(Irrgang13I))
 o_thick.integrate(ts,MWPotential2014)
+o_thick_mcm17.integrate(ts,McMillan17)
+o_thick_irrI.integrate(ts,Irrgang13I)
 
 o_halo = Orbit(star_halo[0], ro=R0, zo=z0, vo=V0, solarmotion=v_sun)
+o_halo_mcm17 = Orbit(**get_physical(McMillan17))
+o_halo_irrI = Orbit(**get_physical(Irrgang13I))
 o_halo.integrate(ts,MWPotential2014)
+o_halo_mcm17.integrate(ts,McMillan17)
+o_halo_irrI.integrate(ts,Irrgang13I)
 
 
 # Integrating ALL orbits
@@ -163,168 +176,91 @@ print('e = ', o_thin.e(), 'Lz = ', o_thin.Lz(quantity=True))
 print('e = ', o_thick.e(), 'Lz = ', o_thick.Lz(quantity=True))
 print('e = ', o_halo.e(), 'Lz = ', o_halo.Lz(quantity=True))
 
+print('e = ', o_thin_mcm17.e(), 'Lz = ', o_thin.Lz(quantity=True))
+print('e = ', o_thick_mcm17.e(), 'Lz = ', o_thick.Lz(quantity=True))
+print('e = ', o_halo_mcm17.e(), 'Lz = ', o_halo.Lz(quantity=True))
+
+print('e = ', o_thin_irrI.e(), 'Lz = ', o_thin.Lz(quantity=True))
+print('e = ', o_thick_irrI.e(), 'Lz = ', o_thick.Lz(quantity=True))
+print('e = ', o_halo_irrI.e(), 'Lz = ', o_halo.Lz(quantity=True))
 
 
-# %% [markdown]
-# ### Extended Report #6: Galactic Potential 
-# #### For McMillan17 Potential:
-
-# %%
-# np.random.seed(0)
-
-# # Initialize Vectors
-# star_thin=np.zeros((N,6))
-# star_thick=np.zeros((N,6))
-# star_halo=np.zeros((N,6))
-
-# for i in range(N):
-#     star_thin[i, 0] = RTZ_thin[0]/8.
-#     star_thin[i, 1] = vRTZ_thin[i, 0] / 220. 
-#     star_thin[i, 2] = 1 + vRTZ_thin[i, 1] / 220. 
-#     star_thin[i, 3] = RTZ_thin[2] / 8. 
-#     star_thin[i, 4] = vRTZ_thin[i, 2] / 220. 
-#     star_thin[i, 5] = RTZ_thin[1]  
-
-#     star_thick[i, 0] = RTZ_thick[0]/8.
-#     star_thick[i, 1] = vRTZ_thick[i, 0] / 220. 
-#     star_thick[i, 2] = 1 + vRTZ_thick[i, 1] / 220. 
-#     star_thick[i, 3] = RTZ_thick[2] / 8. 
-#     star_thick[i, 4] = vRTZ_thick[i, 2] / 220. 
-#     star_thick[i, 5] = RTZ_thick[1]
-
-#     star_halo[i, 0] = RTZ_halo[0]/8.
-#     star_halo[i, 1] = vRTZ_halo[i, 0] / 220. 
-#     star_halo[i, 2] = 1 + vRTZ_halo[i, 1] / 220. 
-#     star_halo[i, 3] = RTZ_halo[2] / 8. 
-#     star_halo[i, 4] = vRTZ_halo[i, 2] / 220. 
-#     star_halo[i, 5] = RTZ_halo[1]
-
-
-# ts = np.linspace(0,2,100)*u.Gyr
-
-# o_thin = Orbit(**get_physical(McMillan17))
-# o_thin.integrate(ts,McMillan17)
-
-# o_thick = Orbit(**get_physical(McMillan17))
-# o_thick.integrate(ts,McMillan17)
-
-# o_halo = Orbit(**get_physical(McMillan17))
-# o_halo.integrate(ts,McMillan17)
-
-# # Integrating All Orbits
-
-# a_thin = Orbit(**get_physical(McMillan17))
-# a_thin.integrate(ts,McMillan17)
-
-# a_thick = Orbit(**get_physical(McMillan17))
-# a_thick.integrate(ts,McMillan17)
-
-# a_halo = Orbit(**get_physical(McMillan17))
-# a_halo.integrate(ts,McMillan17)
-
-
-# # printing eccentricity and angular momentum (z component)
-# print('e = ', o_thin.e(), 'Lz = ', o_thin.Lz(quantity=True))
-# print('e = ', o_thick.e(), 'Lz = ', o_thick.Lz(quantity=True))
-# print('e = ', o_halo.e(), 'Lz = ', o_halo.Lz(quantity=True))
-
-# %% [markdown]
-# #### For Irrgang13I Potential:
-
-# %%
-# np.random.seed(0)
-
-# # Initialize Vectors
-# star_thin=np.zeros((N,6))
-# star_thick=np.zeros((N,6))
-# star_halo=np.zeros((N,6))
-
-# for i in range(N):
-#     star_thin[i, 0] = RTZ_thin[0]/8.
-#     star_thin[i, 1] = vRTZ_thin[i, 0] / 220. 
-#     star_thin[i, 2] = 1 + vRTZ_thin[i, 1] / 220. 
-#     star_thin[i, 3] = RTZ_thin[2] / 8. 
-#     star_thin[i, 4] = vRTZ_thin[i, 2] / 220. 
-#     star_thin[i, 5] = RTZ_thin[1]  
-
-#     star_thick[i, 0] = RTZ_thick[0]/8.
-#     star_thick[i, 1] = vRTZ_thick[i, 0] / 220. 
-#     star_thick[i, 2] = 1 + vRTZ_thick[i, 1] / 220. 
-#     star_thick[i, 3] = RTZ_thick[2] / 8. 
-#     star_thick[i, 4] = vRTZ_thick[i, 2] / 220. 
-#     star_thick[i, 5] = RTZ_thick[1]
-
-#     star_halo[i, 0] = RTZ_halo[0]/8.
-#     star_halo[i, 1] = vRTZ_halo[i, 0] / 220. 
-#     star_halo[i, 2] = 1 + vRTZ_halo[i, 1] / 220. 
-#     star_halo[i, 3] = RTZ_halo[2] / 8. 
-#     star_halo[i, 4] = vRTZ_halo[i, 2] / 220. 
-#     star_halo[i, 5] = RTZ_halo[1]
-
-
-# ts = np.linspace(0,2,100)*u.Gyr
-
-# o_thin = Orbit(**get_physical(Irrgang13I))
-# o_thin.integrate(ts,Irrgang13I)
-
-# o_thick = Orbit(**get_physical(Irrgang13I))
-# o_thick.integrate(ts,Irrgang13I)
-
-
-# o_halo = Orbit(**get_physical(Irrgang13I))
-# o_halo.integrate(ts,Irrgang13I)
-
-
-# # we integrate all orbits
-
-
-# a_thin = Orbit(**get_physical(Irrgang13I))
-# a_thin.integrate(ts,Irrgang13I)
-
-# a_thick = Orbit(**get_physical(Irrgang13I))
-# a_thick.integrate(ts,Irrgang13I)
-
-# a_halo = Orbit(**get_physical(Irrgang13I))
-# a_halo.integrate(ts,Irrgang13I)
-
-
-# # printing eccentricity and angular momentum (z component)
-# print('e = ', o_thin.e(), 'Lz = ', o_thin.Lz(quantity=True))
-# print('e = ', o_thick.e(), 'Lz = ', o_thick.Lz(quantity=True))
-# print('e = ', o_halo.e(), 'Lz = ', o_halo.Lz(quantity=True))
 
 # %% [markdown]
 # ### Plotting Orbits
 
 # %%
-# Plotting orbits
+# Plotting orbits MWPotential
+
 fig = pl.figure(figsize=(14,6))
 fig.subplots_adjust(wspace=0.3)
-ax1 = fig.add_subplot(121)
 
+ax1 = fig.add_subplot(121)
 ax1.plot(o_halo.R(ts,quantity=True),o_halo.z(ts,quantity=True))
 ax1.plot(o_thick.R(ts,quantity=True),o_thick.z(ts,quantity=True))
 ax1.plot(o_thin.R(ts,quantity=True),o_thin.z(ts,quantity=True))
-
-
 ax1.set_xlabel('R [kpc]')
 ax1.set_ylabel('Z [kpc]')
 
-
 ax2 = fig.add_subplot(122)
-
 ax2.plot(o_halo.y(ts,quantity=True),o_halo.x(ts,quantity=True), label='halo')
 ax2.plot(o_thick.y(ts,quantity=True),o_thick.x(ts,quantity=True), label='thick disk')
 ax2.plot(o_thin.y(ts,quantity=True),o_thin.x(ts,quantity=True), label='thin disk')
-
 ax2.set_xlabel('Y [kpc]')
 ax2.set_ylabel('X [kpc]')
-
-pl.legend(frameon=False)
-
 ax2.invert_xaxis()
 ax2.invert_yaxis()
+
+pl.legend(frameon=False)
 pl.show()
+
+# Plotting orbits McMillan17
+fig = pl.figure(figsize=(14,6))
+fig.subplots_adjust(wspace=0.3)
+
+ax1 = fig.add_subplot(121)
+ax1.plot(o_halo_mcm17.R(ts,quantity=True),o_halo.z(ts,quantity=True))
+ax1.plot(o_thick_mcm17.R(ts,quantity=True),o_thick.z(ts,quantity=True))
+ax1.plot(o_thin_mcm17.R(ts,quantity=True),o_thin.z(ts,quantity=True))
+ax1.set_xlabel('R [kpc]')
+ax1.set_ylabel('Z [kpc]')
+
+ax2 = fig.add_subplot(122)
+ax2.plot(o_halo_mcm17.y(ts,quantity=True),o_halo.x(ts,quantity=True), label='halo')
+ax2.plot(o_thick_mcm17.y(ts,quantity=True),o_thick.x(ts,quantity=True), label='thick disk')
+ax2.plot(o_thin_mcm17.y(ts,quantity=True),o_thin.x(ts,quantity=True), label='thin disk')
+ax2.set_xlabel('Y [kpc]')
+ax2.set_ylabel('X [kpc]')
+ax2.invert_xaxis()
+ax2.invert_yaxis()
+
+pl.legend(frameon=False)
+pl.show()
+
+
+# Plotting Orbits Irrgang
+fig = pl.figure(figsize=(14,6))
+fig.subplots_adjust(wspace=0.3)
+
+ax1 = fig.add_subplot(121)
+ax1.plot(o_halo_irrI.R(ts,quantity=True),o_halo.z(ts,quantity=True))
+ax1.plot(o_thick_irrI.R(ts,quantity=True),o_thick.z(ts,quantity=True))
+ax1.plot(o_thin_irrI.R(ts,quantity=True),o_thin.z(ts,quantity=True))
+ax1.set_xlabel('R [kpc]')
+ax1.set_ylabel('Z [kpc]')
+
+ax2 = fig.add_subplot(122)
+ax2.plot(o_halo_irrI.y(ts,quantity=True),o_halo.x(ts,quantity=True), label='halo')
+ax2.plot(o_thick_irrI.y(ts,quantity=True),o_thick.x(ts,quantity=True), label='thick disk')
+ax2.plot(o_thin_irrI.y(ts,quantity=True),o_thin.x(ts,quantity=True), label='thin disk')
+ax2.set_xlabel('Y [kpc]')
+ax2.set_ylabel('X [kpc]')
+ax2.invert_xaxis()
+ax2.invert_yaxis()
+
+pl.legend(frameon=False)
+pl.show()
+
 
 
 # %% [markdown]
@@ -373,19 +309,19 @@ pl.show()
 
 # %%
 # Choose timeframe (intermediate), e.g. 1 Gyr
-ts = np.linspace(0,2,100)*u.Gyr
+ts = np.linspace(0,2,1000)*u.Gyr
 
 time_index = np.argmin(np.abs(ts - 1.0 * u.Gyr))  # find the index closer to 1 Gyr
 
 # obtain positions R and Z at that moment
-R_thin = a_thin.R(time_index)  # R in kpc
-Z_thin = a_thin.z(time_index)  # Z in kpc
+R_thin = a_thin.R(ts[time_index])  # R in kpc
+Z_thin = a_thin.z(ts[time_index])  # Z in kpc
 
-R_thick = a_thick.R(time_index)
-Z_thick = a_thick.z(time_index)
+R_thick = a_thick.R(ts[time_index])
+Z_thick = a_thick.z(ts[time_index])
 
-R_halo = a_halo.R(time_index)
-Z_halo = a_halo.z(time_index)
+R_halo = a_halo.R(ts[time_index])
+Z_halo = a_halo.z(ts[time_index])
 
 
 # R histogram
@@ -396,6 +332,8 @@ pl.hist(R_halo, bins=30, alpha=0.5, label='Halo', color='red')
 pl.xlabel('Galactocentric Radius, R (kpc)')
 pl.ylabel('Counts')
 pl.legend()
+pl.xlim(-15, 45)
+
 pl.tight_layout()
 pl.savefig("simulated_histogram1.png", dpi=150, bbox_inches='tight')
 pl.show()
@@ -408,10 +346,11 @@ pl.hist(Z_halo, bins=30, alpha=0.5, label='Halo', color='red')
 pl.xlabel('Vertical Coordinate, Z (kpc)')
 pl.ylabel('Counts')
 pl.legend()
+pl.xlim(-25, 25)
+
 pl.tight_layout()
 pl.savefig("simulated_histogram2.png", dpi=150, bbox_inches='tight')
 pl.show()
-
 
 
 # %% [markdown]
@@ -474,7 +413,7 @@ star_thin = R[mask_thin]
 star_thick = R[mask_thick]
 star_halo = R[mask_halo]
 
-ts = np.linspace(0,2,100)*u.Gyr
+ts = np.linspace(0,2,1000)*u.Gyr
 
 # Integrate over ONE orbit 
 o_thin = Orbit([star_thin['RA_deg'][0],star_thin['DEC_deg'][0],1/star_thin['parallax_mas'][0], # distance=1/parallax
@@ -524,14 +463,14 @@ print('e = ', round(o_halo.e(),3), 'Lz = ', o_halo.Lz(quantity=True))
 time_index = np.argmin(np.abs(ts - 1.0 * u.Gyr))  # find the index closer to 1 Gyr
 
 # obtain positions R and Z at that moment
-R_thin = a_thin.R(time_index)  # R en kpc
-Z_thin = a_thin.z(time_index)  # Z en kpc
+R_thin = a_thin.R(ts[time_index])  # R en kpc
+Z_thin = a_thin.z(ts[time_index])  # Z en kpc
 
-R_thick = a_thick.R(time_index)
-Z_thick = a_thick.z(time_index)
+R_thick = a_thick.R(ts[time_index])
+Z_thick = a_thick.z(ts[time_index])
 
-R_halo = a_halo.R(time_index)
-Z_halo = a_halo.z(time_index)
+R_halo = a_halo.R(ts[time_index])
+Z_halo = a_halo.z(ts[time_index])
 
 # R histogram
 fig1 = pl.figure(figsize=(8, 6))
@@ -651,7 +590,7 @@ print(R.dtype)
 
 # Create again the three orbits
 stars = R
-ts = np.linspace(0,2,100)*u.Gyr
+ts = np.linspace(0,2,1000)*u.Gyr
 
 # integrate ONE orbit only
 o_stars = Orbit([stars['ra'][0],stars['dec'][0],1/stars['parallax'][0], # distance=1/parallax
@@ -678,8 +617,8 @@ print('e = ', round(o_stars.e(),3), 'Lz = ', o_stars.Lz(quantity=True))
 time_index = np.argmin(np.abs(ts - 1.0 * u.Gyr))  # find the index closer to 1 Gyr
 
 # obtain positions R and Z at that moment
-R_stars = a_stars.R(time_index)  # R en kpc
-Z_stars = a_stars.z(time_index)  # Z en kpc
+R_stars = a_stars.R(ts[time_index])  # R en kpc
+Z_stars = a_stars.z(ts[time_index])  # Z en kpc
 
 # R histogram
 fig1 = pl.figure(figsize=(8, 6))
